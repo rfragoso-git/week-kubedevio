@@ -39,7 +39,7 @@ jobs:
           context: ./src
           file: ./src/dockerfile
           tags:
-            rof1966/api-produto:v1
+            rof1966/api-produto:latest
             rof1966/api-produto:${{ github.run_number }}
           push: true
           
