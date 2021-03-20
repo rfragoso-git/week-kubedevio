@@ -40,7 +40,7 @@ jobs:
           file: ./src/dockerfile
           tags:
             rof1966/api-produto:latest
-            rof1966/api-produto:${{ github.run_number }}
+            # rof1966/api-produto:${{ github.run_number }}
           push: true
           
             
