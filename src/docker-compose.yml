@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  api:
+    image: rof1966/api-products:dockerfile
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - 8085:8080
+    networks:
+      - api-network
+    environment:
+      MONGODB_URI: mongodb://mongouser:mongopwd@mongodb:27017/admin
+
+  mongodb:
+    image: mongo:4.4.4
+    ports:
+      - 27017:27017
+    networks: 
+      - api-network
+    volumes:
+      - "api-volume:/data/db"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: mongopwd
+
+volumes:
+  api-volume:
+  
+networks:
+  api-network:
+    driver: bridge
