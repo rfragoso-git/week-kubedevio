@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  strategy:
+    type: RollingUpdate  
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template: 
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080" 
+      labels:
+        app: api            
+    spec:
+      containers:
+      - name: api
+        image: kubedevio/api-produto:v1
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+        env:
+          - name: MONGODB_URI
+            value: mongodb://mongodbuser:mongodbpwd@mongo-service:27017/admin
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+      
+
+        
