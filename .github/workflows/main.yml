@@ -65,5 +65,5 @@ CI:
           with:
            manifests: |
              api/deployment.yml
-               api/service.yml
+             api/service.yml
               
